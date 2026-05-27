@@ -38,7 +38,7 @@
                                 <a href="{{ path('recipe_edit', { id: recipe.id }) }}" class="btn btn-info">Modifier</a>
                             </td>
                             <td>
-                                <a href="{{ path('recipe_remove', { id: recipe.id }) }}" class="btn btn-warning">Supprimer</a>
+                                <a href="{{ path('recipe_remove', { id: recipe.id }) }}" class="btn btn-warning" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette recette ?');">Supprimer</a>
                             </td>
                         </tr>
                     {% endfor %}
