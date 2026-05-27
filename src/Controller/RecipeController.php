@@ -61,12 +61,26 @@ final class RecipeController extends AbstractController
         Recipe $recipe
     ): Response
     {
-        $this->addFlash(
-            type: 'info',
-            message: 'Édition de recette - À implémenter'
-        );
+        $form = $this->createForm(type: RecipeType::class, data: $recipe);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            $recipe = $form->getData();
 
-        return $this->redirectToRoute(route: 'app_recipe');
+            //$manager->persist($recipe);
+            $manager->flush();
+
+            $this->addFlash(
+                type: 'success',
+                message: 'Vos changements ont été enregistrés !'
+            );
+            
+            return $this->redirectToRoute(route:'app_recipe');
+        }
+
+        return $this->render('pages/recipe/edit.html.twig', [
+            'form' => $form,
+        ]);
     }
 
     #[Route('/recipe/remove/{id}', name: 'recipe_remove', methods: ['GET'])]
